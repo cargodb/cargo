@@ -1,9 +1,14 @@
 import Foundation
 import validation
 
-open class Resource {
-  final private let lock = DispatchSemaphore(value:1)
+open class Resource : Equatable {
+  public static var tableName:String {
+    return String(describing: self).lowercased().pluralize()
+  }
+
+  final private let lock                                    = DispatchSemaphore(value:1)
   public private(set) var errors:[String:[ValidationError]] = [:]
+
   final public lazy var properties:[String:Property] = {
     self.lock.wait(); defer { self.lock.signal() }
 
@@ -20,22 +25,23 @@ open class Resource {
 
   final public var isValid:Bool {
     var errorCount = 0
-    
+
     errors.removeAll()
+
     for (name, property) in properties {
       if property.isValid == false {
         errors[name] = property.errors
-        
+
         errorCount += 1
       }
     }
-    
+
     return errorCount == 0
   }
 
   public init() {}
 
-  subscript(key:String) -> Validatable? {
+  public subscript(key:String) -> Validatable? {
     get {
       return properties[key]?.value
     }
@@ -46,3 +52,7 @@ open class Resource {
   }
 }
 
+
+public func ==(lhs:Resource, rhs:Resource) -> Bool {
+  return String(describing: lhs).lowercased() == String(describing: rhs).lowercased()
+}

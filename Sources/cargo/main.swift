@@ -1,13 +1,22 @@
 import Foundation
 import resource
 
-class X : Resource {
+class Goose : Resource, JSONResource {
   let firstname = "Wess"
   let lastname  = "Cope"
-  let username  = Property(.text)
+  let username  = Property(.text, validation:[.required])
 }
 
-let z = X()
+let z = Goose()
+z["username"] = "wesscope"
 
-print("Hello, world!")
-print("Properties: \(z.properties)")
+if z.isValid {
+  print("--- NAME: \(Goose.tableName)")
+  print("value: \(z["username"])")
+  print("Properties: \(z.properties)")
+  print("json: \(z.json)")
+  print("jsonString: \(z.jsonString)")
+} else {
+    print("Errrrrrrr")
+    print("Err: \(z.errors)")
+}
