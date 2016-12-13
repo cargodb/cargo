@@ -5,6 +5,7 @@ class Goose : Resource, JSONResource {
   let firstname = "Wess"
   let lastname  = "Cope"
   let username  = Property(.text, validation:[.required])
+  let birds     = Relationship<Goose>(.hasMany)
 }
 
 let z = Goose()

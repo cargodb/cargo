@@ -1,7 +1,7 @@
 import Foundation
 import validation
 
-public class Property {
+public class Property : ResourceProperty{
   public let type:PropertyType
   public var value:Validatable?
   public let validation:[Validation]
