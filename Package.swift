@@ -8,5 +8,8 @@ let package = Package(
       Target(name: "database",  dependencies:["resource"]),
       Target(name: "json"),
       Target(name: "validation"),
+    ],
+
+    dependencies: [
     ]
 )

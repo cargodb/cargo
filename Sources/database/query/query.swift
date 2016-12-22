@@ -38,39 +38,3 @@ public enum QueryAction {
   }
 }
 
-public class QueryBuilder {
-  private(set) public var table:String
-
-  private var sql:String
-
-  public init(_ table:String) {
-    self.table = table
-  }
-
-  func action(_ action:QueryAction) -> QueryBuilder {
-    return self
-  }
-
-  func where(_ conditions:[String]) -> QueryBuilder {
-    return self
-  }
-}
-
-public extension QueryBuilder /* helpers */ {
-  public func select()
-}
-
-public class Query {
-  private(set) public var resource:Resource
-
-  public init(_ resource:Resource) {
-    self.resource = resource
-  }
-
-
-}
-
-
-/*
-let qry = Query(.select(["username", "password"), from: "users", where:["id", 1])
-*/

@@ -1,11 +1,13 @@
 import Foundation
 
 public class Database {
-  public static var map:[String:Database] = [:]
-  public static var `default`:Database?
-  public let driver:Driver
+  private let config:DBConfig
 
-  public init(_ driver:Driver) {
-    self.driver = driver
+  public init(_ config:DBConfig) {
+    self.config = config
+  }
+
+  public func query(_ query:String) -> Any? {
+    return nil
   }
 }
